@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS += -pedantic -Ilibs/unity -lstdc++
+CFLAGS += -pedantic -Ilibs/Unity/src -lstdc++
 SRC += $(wildcard ./src/*.cc)
 
 all:
@@ -9,5 +9,5 @@ debug:
 	$(CC) $(CFLAGS) -g $(SRC) -o bin/crestapi.debug.bin
 	gdb bin/crestapi.debug.bin
 test:
-	$(CC) $(CFLAGS) -DTEST libs/unity/unity.c $(SRC) -o bin/crestapi.test.bin
+	$(CC) $(CFLAGS) -DTEST libs/Unity/src/unity.c $(SRC) -o bin/crestapi.test.bin
 	valgrind bin/crestapi.test.bin
