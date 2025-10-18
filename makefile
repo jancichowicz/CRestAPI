@@ -10,4 +10,5 @@ debug:
 	gdb bin/crestapi.debug.bin
 test:
 	$(CC) $(CFLAGS) -DTEST libs/Unity/src/unity.c $(SRC) -o bin/crestapi.test.bin
+runtest: test
 	valgrind bin/crestapi.test.bin
