@@ -1,4 +1,4 @@
-CC = gcc
+CC = g++
 CFLAGS += -pedantic -Ilibs/Unity/src -lstdc++
 SRC += $(wildcard ./src/*.cc)
 
