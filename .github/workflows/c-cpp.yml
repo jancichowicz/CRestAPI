@@ -8,10 +8,16 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: make 
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        submodules: 'recursive'
+        fetch-depth: 0
+        persist-credentials: true
+
+    - name: Build and test
       run: make test
