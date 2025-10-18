@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+<<<<<<< HEAD
     - name: Checkout repository and submodules
       uses: actions/checkout@v4
       with:
@@ -20,4 +21,12 @@ jobs:
         persist-credentials: true
 
     - name: Build and test
+=======
+    - uses: actions/checkout@v4
+    - name: Checkout repo and submodules
+      with:
+        submodules: 'recursive'
+        fetch-depth: 0
+    - name: make 
+>>>>>>> refs/remotes/origin/main
       run: make test
