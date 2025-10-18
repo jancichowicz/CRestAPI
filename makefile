@@ -11,3 +11,5 @@ test:
 	$(CC) $(CFLAGS) -DTEST libs/Unity/src/unity.c $(SRC) -o crestapi.test.bin
 runtest: test
 	valgrind ./crestapi.test.bin
+clean:
+	rm ./*.bin
