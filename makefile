@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS += -pedantic -Ilibs/Unity/src -lstdc++
-SRC += $(wildcard ./src/*.cc)
+SRC += $(wildcard ./src/*.c)
 
 all:
 	$(CC) $(CFLAGS) $(SRC) -o crestapi.bin
