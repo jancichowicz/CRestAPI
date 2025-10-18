@@ -11,4 +11,4 @@ CRestAPI is a simple hobbistic project written in C (as the name suggests), impl
 =======
 ## Dependencies
 >>>>>>> refs/remotes/origin/main
-gcc, Unity, Valgrind, gdb
+Unity
