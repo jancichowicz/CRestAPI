@@ -20,4 +20,4 @@ jobs:
         persist-credentials: true
 
     - name: Build and test
-      run: make test
+      run: make test && ./crestapi.test.bin
