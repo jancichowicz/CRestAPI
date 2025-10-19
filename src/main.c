@@ -4,7 +4,6 @@
 #include "socketserver.h"
 
 #define PORT 8080
-#define BUF_LEN 1024
 
 #ifdef TEST
 #include "unity.h"
@@ -22,7 +21,7 @@ int main(int argc, char* argv[]) {
   UNITY_BEGIN();
   #endif
 
-  socketServer sock(PORT, BUF_LEN);
+  socketServer sock(PORT);
 
 
   #ifdef TEST 

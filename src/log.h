@@ -10,7 +10,7 @@
 
 typedef uint8_t log_type;
 
-static void LOG(log_type type, char const *message, ...) {
+static int LOG(log_type type, char const *message, ...) {
   if (type == LOG_INFO) printf("[INFO] ");
   else if (type == LOG_WARNING) printf("[WARNING] ");
   else if (type == LOG_PANIC) printf("[PANIC] ");
@@ -19,4 +19,5 @@ static void LOG(log_type type, char const *message, ...) {
   va_start(va, message);
   vfprintf(stdout, message, va);
   printf("\n");
+  return 0;
 }

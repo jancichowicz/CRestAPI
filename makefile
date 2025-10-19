@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS += -pedantic -Ilibs/Unity/src -lstdc++
+CFLAGS += -pedantic -Ilibs/Unity/src -lstdc++ -lpthread
 SRC += $(wildcard ./src/*.c)
 
 all:
