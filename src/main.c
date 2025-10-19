@@ -18,15 +18,12 @@ void tearDown (void) {
 
 int main(int argc, char* argv[]) {
   #ifdef TEST
-  UNITY_BEGIN();
+    UNITY_BEGIN();
+
+    return UNITY_END();
+  #else
+    socketServer sock(PORT);
+
+    return 0;
   #endif
-
-  socketServer sock(PORT);
-
-
-  #ifdef TEST 
-  return UNITY_END();
-  #endif
-
-  return 0;
 }
