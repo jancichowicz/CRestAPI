@@ -6,12 +6,13 @@
 #include <stdlib.h>
 
 
-struct request {
+typedef struct request {
   char *resource;
   char *queryParams;
-};
+} request;
 
 request parseRequest(char *req);
+void makeRequestInvalid(struct request *req);
 
 
 #endif

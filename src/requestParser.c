@@ -1,12 +1,12 @@
 #include "requestParser.h"
 
-inline void makeRequestInvalid(struct request *req) {
+void makeRequestInvalid(struct request *req) {
   req->resource = strdup("WRONG_QUERY");
   req->queryParams = strdup("WRONG_QUERY");
 }
 
 request parseRequest(char *req) {
-  struct request retRequest = {0};
+  request retRequest = {0};
   
   if (strstr(req, "&") < strstr(req, "?")) {
     makeRequestInvalid(&retRequest);

@@ -7,6 +7,8 @@
 #include <assert.h>
 #include <pthread.h>
 #include <errno.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "log.h"
 
@@ -15,14 +17,14 @@
 static bool isErrorRaised = false;
 typedef struct socketServer {
   uint16_t _port;
-  int server_fd = 0;
+  int server_fd;
   struct sockaddr_in address;
-  int opt = 1;
-  socklen_t addrlen = sizeof(address);
+  int opt;
+  socklen_t addrlen;
 
-  void setUpSocket(void);
-  void superLoop(void);
 
-  socketServer(uint16_t port);
-  ~socketServer();
 } socketServer;
+
+void socketServerSuperLoop(socketServer *sockserv);
+void setUpSocketServer(socketServer *sockserv, uint16_t port);
+void tearDownSocketServer(socketServer *sockserv);

@@ -1,10 +1,7 @@
 #include <stdlib.h>
-#include <cstdio>
 
 #include "socketserver.h"
 #include "requestParser.h"
-
-#define PORT 8080
 
 #ifdef TEST
 #include "unity.h"
@@ -28,8 +25,10 @@ int main(int argc, char* argv[]) {
       RUN_TEST(test_requestParser_noResourceGiven);
     return UNITY_END();
   #else
-    socketServer sock(PORT);
-   
+    socketServer ss = {0};
+    setUpSocketServer(&ss, 8080);
+    socketServerSuperLoop(&ss);
+
     return 0;
   #endif
 }

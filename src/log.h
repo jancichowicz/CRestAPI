@@ -1,6 +1,4 @@
 #include <stdlib.h>
-#include <cstdint>
-#include <cstdio>
 #include <stdarg.h>
 
 

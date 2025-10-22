@@ -2,37 +2,39 @@
 
 void *manageRequestToClient(void *sock);
 
-void socketServer::setUpSocket(void) {
-  if((this->server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-    LOG(LOG_PANIC, "Unable to create socket on port: %d", this->_port);
+void setUpSocketServer(socketServer *sockserv, uint16_t port) {
+  LOG(LOG_INFO, "Socket server instance created");
+  sockserv->_port = port;
+  sockserv->opt = 1;
+  sockserv->server_fd = 0;
+  if((sockserv->server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+    LOG(LOG_PANIC, "Unable to create socket on port: %d", sockserv->_port);
     exit(1);
   }
-  LOG(LOG_INFO, "Created socket on port: %d", this->_port);
+  LOG(LOG_INFO, "Created socket on port: %d", sockserv->_port);
 
-  if(setsockopt(this->server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &this->opt, sizeof(this->opt)) < 0) {
-     LOG(LOG_PANIC, "Unable to attach socket to port: %d", this->_port);
+  if(setsockopt(sockserv->server_fd, SOL_SOCKET, SO_REUSEADDR, &sockserv->opt, sizeof(sockserv->opt)) < 0) {
+     LOG(LOG_PANIC, "Unable to attach socket to port: %d", sockserv->_port);
   }
   LOG(LOG_INFO, "Attached socket to port");
 
-  this->address.sin_family = AF_INET;
-  this->address.sin_addr.s_addr = INADDR_ANY;
-  this->address.sin_port = htons(this->_port);
+  sockserv->address.sin_family = AF_INET;
+  sockserv->address.sin_addr.s_addr = INADDR_ANY;
+  sockserv->address.sin_port = htons(sockserv->_port);
+  sockserv->addrlen = sizeof(sockserv->address);
 
-  if(bind(this->server_fd, (struct sockaddr*)&this->address, sizeof(this->address)) < 0) {
-    LOG(LOG_PANIC, "Unable to bind socket to port: %d", this->_port);
+  if(bind(sockserv->server_fd, (struct sockaddr*)&sockserv->address, sizeof(sockserv->address)) < 0) {
+    LOG(LOG_PANIC, "Unable to bind socket to port: %d", sockserv->_port);
   }
   LOG(LOG_INFO, "Socket bound to port");
 }
-void socketServer::superLoop(void) {
-  this->setUpSocket();
-
-  
+void socketServerSuperLoop(socketServer *sockserv) {
   while (isErrorRaised == false) {
     int client_fd = 0;
-    if (listen(this->server_fd, 3) < 0) {
+    if (listen(sockserv->server_fd, 3) < 0) {
       LOG(LOG_PANIC, "Listen failed");
     } else {
-      client_fd = accept(this->server_fd, (struct sockaddr*)&this->address, &this->addrlen);
+      client_fd = accept(sockserv->server_fd, (struct sockaddr*)&sockserv->address, &sockserv->addrlen);
 
       pthread_t newThread;
       // (void*)(intptr_t) is a workaround to pass arg by value. Alternative would be allocating client_fd dynamically
@@ -42,14 +44,10 @@ void socketServer::superLoop(void) {
     }
   }
 }
-socketServer::socketServer(uint16_t port) {
-  LOG(LOG_INFO, "Socket server instance created");
-  this->_port = port;
 
-  this->superLoop();
-}
-socketServer::~socketServer() {
-  close(this->server_fd);
+
+void tearDownSocketServer(socketServer *sockserv){
+  close(sockserv->server_fd);
   LOG(LOG_INFO, "Socket server instance deleted");
 }
 
