@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS += -pedantic -Ilibs/Unity/src -lpthread -std=c23
+CFLAGS += -pedantic -Ilibs/Unity/src -lpthread -std=c2x
 SRC += $(wildcard ./src/*.c)
 
 all:
