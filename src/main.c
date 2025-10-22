@@ -28,14 +28,7 @@ int main(int argc, char* argv[]) {
       RUN_TEST(test_requestParser_noResourceGiven);
     return UNITY_END();
   #else
-    //socketServer sock(PORT);
-    char *foo = (char*)malloc(100);
-    strcpy(foo, "GET /weather?city=Lodz HTTP/1.1\nHost: 127.0.0.1:127\nAccept: plain/text");
-    struct request req = parseRequest(foo);
-    free(foo);
-    printf("accept: %s\n", req.accept);
-    printf("host: %s\n", req.host);
-    printf("resource: %s\n", req.resource);
+    socketServer sock(PORT);
    
     return 0;
   #endif
